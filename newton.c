@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#define dx .01
+#define dx .1
 #define DIMENSION 3
 
 // Calculate the Jacobian Matrix (matrix of partial derivatives 
@@ -55,7 +55,7 @@ void newton(void (*f)(double*, double*), int n, int iterations, double *a_n) {
         // Calculate the Jacobian [Df(a_n)]
         double **D = newMatrix(n, n + 1);
         (void) deriv(f, n, a_n, D);
-       
+
         // Calculate f(a_n)
         double f_g[n];
         (*f)(a_n, f_g);
@@ -84,7 +84,7 @@ void f(double *x, double *y) {
 
 
 void main(void) {
-    double a_n[DIMENSION] = {3, 2, 1}; // Initial Guess Vector
+    double a_n[DIMENSION] = {0}; // Initial Guess Vector
     newton(&f, DIMENSION, 100, a_n);
     printf("<%f, %f, %f>\n", a_n[0], a_n[1], a_n[2]);
 }
