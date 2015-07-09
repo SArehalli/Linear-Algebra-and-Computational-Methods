@@ -61,7 +61,6 @@ int main() {
     double **data = newMatrix(5, 5);
    
     readMatrix("data.txt", data, 5, 5); 
-    printMatrix(data, 5, 5);
 
     perceptron_train(w, data, 4, 5);
     printf("<%f, %f, %f, %f, %f>\n", w[0], w[1], w[2], w[3], w[4]);
