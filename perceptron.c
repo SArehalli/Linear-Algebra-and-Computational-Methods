@@ -12,6 +12,8 @@ int perceptron_predict(double *w, double *x, int n) {
     return sign(dot(w + 1, x, n) + w[0]);
 }
 
+
+// Error function 
 int error(double *w, double** data, int n, int k) {
     int sum = 0;
     for (int i = 0; i < k; i++) {
@@ -22,6 +24,7 @@ int error(double *w, double** data, int n, int k) {
 }
 
 /* Create the weight vector w
+ *
  * w is an output parameter
  * data is the training data set
  * n is the dimension of the data
@@ -58,7 +61,8 @@ int main() {
     double **data = newMatrix(5, 5);
    
     readMatrix("data.txt", data, 5, 5); 
-    
+    printMatrix(data, 5, 5);
+
     perceptron_train(w, data, 4, 5);
     printf("<%f, %f, %f, %f, %f>\n", w[0], w[1], w[2], w[3], w[4]);
 }

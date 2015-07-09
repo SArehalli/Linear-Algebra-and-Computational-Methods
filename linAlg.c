@@ -73,7 +73,7 @@ void readMatrix(char *filename, double **A, int m, int n) {
     FILE *fp = fopen(filename, "r");
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            fscanf(fp, "%lf", &A[i][j]);
+            fscanf(fp, "%lf,", &A[i][j]);
         }
     }
 }
