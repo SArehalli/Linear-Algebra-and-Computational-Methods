@@ -4,7 +4,60 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "linAlg.h"
+
+#define dx .1
+
+// Calculate the Jacobian Matrix (matrix of partial derivatives 
+int deriv(void (*f)(double*, double*), int n, double *x, double **J) {
+
+    // For each variable
+    for (int i = 0; i < n; i++) {
+        double f_a0[n]; 
+        (*f)(x, f_a0);
+        
+        double xdx[n];
+        (void) memcpy(xdx, x, n * sizeof(double));
+        xdx[i] += dx;
+        
+        double f_a1[n];
+        (*f)(xdx, f_a1);
+
+        // calculate the derivative with respect to that variable
+        for (int j = 0; j < n; j++) {
+            // And construct the jacobian
+            J[j][i] = (f_a1[j] - f_a0[j])/dx;
+        }
+    }
+    return n;
+}
+
+// Allocate a matrix on the heap
+double** newMatrix(int m, int n) {
+    double **D = malloc(m * sizeof(double *));
+    for (int j = 0; j < m; j++) {
+        D[j] = (double *) malloc(n * sizeof(double));
+    }
+    return D;
+}
+
+// Free the memory of a matrix on the heap
+void freeMatrix(double **D, int m) {
+    for (int i = 0; i < m; i++) {
+        free(D[i]);
+    }
+    free(D);
+}
+
+double* newVector(int n) {
+    return (double*) malloc(n * sizeof(double)); 
+}
+
+void freeVector(double *v) {
+    (void) free(v);
+}
 
 void printMatrix(double **A, int m, int n) {
     for (int i = 0; i < m; i++) {
@@ -14,6 +67,15 @@ void printMatrix(double **A, int m, int n) {
         printf("\n");
     }
     printf("\n");
+}
+
+void readMatrix(char *filename, double **A, int m, int n) {
+    FILE *fp = fopen(filename, "r");
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            fscanf(fp, "%lf", &A[i][j]);
+        }
+    }
 }
 
 int findMax(double *v, int n) {
@@ -73,4 +135,16 @@ int rowReduce(double **A, int m, int n) {
     return 0;
 }
 
+// Dot product 
+double dot(double *v, double *w, int n) {
+    double sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += v[i] * w[i];
+    }
+    return sum;
+}
 
+// Returns the sign of a double
+int sign(double x) {
+    return x < 0.0? -1 : 1;  
+}
