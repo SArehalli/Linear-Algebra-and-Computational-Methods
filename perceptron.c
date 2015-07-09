@@ -60,5 +60,5 @@ int main() {
     readMatrix("data.txt", data, 5, 5); 
     
     perceptron_train(w, data, 4, 5);
-    printf("<%f, %f, %f, %f, %f>", w[0], w[1], w[2], w[3], w[4]);
+    printf("<%f, %f, %f, %f, %f>\n", w[0], w[1], w[2], w[3], w[4]);
 }
