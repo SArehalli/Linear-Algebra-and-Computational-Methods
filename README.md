@@ -42,7 +42,7 @@ The main function will calculate the weight vector, the coefficients w<sub>0</su
 `data.txt` is formatted as a csv, with the first entry of each row being the label (-1 or 1) and the rest being the 
 entries of the training data. 
 
-`perceptron.c` also contains a `perceptron_predict` method that can be used to classify other data using the weight vec
+`perceptron.c` also contains a `perceptron_predict` method that can be used to classify other data using the weight vector created with `perceptron_train`.
 
 ## Other Stuff
 
