@@ -1,4 +1,5 @@
 #ifndef LINALG_H
+#define LINALG_H
 
 /* Constants */
 #define PRECISION 0.0001
